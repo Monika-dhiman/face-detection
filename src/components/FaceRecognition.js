@@ -132,7 +132,7 @@ const FaceRecognition = () => {
       ) : (
         <>
           <video ref={videoRef} width="720" height="560" autoPlay muted style={{ border: "2px solid red" }}/>
-          <canvas ref={canvasRef} />
+          <canvas ref={canvasRef} style={{ border: "2px solid black" }}/>
         </>
       )}
     </div>
