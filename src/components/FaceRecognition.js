@@ -144,7 +144,7 @@ const FaceRecognition = () => {
             muted
             style={{ border: "2px solid red" }}
           />
-          <canvas ref={canvasRef} style={{ border: "2px solid black", position:"absolute" }} />
+          <canvas ref={canvasRef} style={{ border: "2px solid black"}} />
         </>
       )}
     </div>
