@@ -57,14 +57,14 @@ const FaceRecognition = () => {
       canvasRef.current = canvas;
       document.body.append(canvas);
 
-      const displaySize = {
+      const displaySize = {  
         width: videoRef.current.width,
         height: videoRef.current.height,
       };
       faceapi.matchDimensions(canvas, displaySize);
 
-      const labeledFaceDescriptors = await loadLabeledImages();
-      const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
+      // const labeledFaceDescriptors = await loadLabeledImages();
+      // const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
 
       setInterval(async () => {
         const detections = await faceapi
@@ -74,6 +74,7 @@ const FaceRecognition = () => {
           )
           .withFaceLandmarks()
           .withFaceDescriptors();
+        console.log("🚀 ~ setInterval ~ detections:", detections)
 
         const resizedDetections = faceapi.resizeResults(
           detections,
@@ -81,16 +82,19 @@ const FaceRecognition = () => {
         );
         const results = resizedDetections.map((d) =>
           faceMatcher.findBestMatch(d.descriptor)
-        );
-
-        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-        results.forEach((result, i) => {
-          const box = resizedDetections[i].detection.box;
-          const drawBox = new faceapi.draw.DrawBox(box, {
-            label: result.toString(),
-          });
-          drawBox.draw(canvas);
-        });
+      );
+      
+      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+      faceapi.draw.drawDetections(canvas, resizedDetections)
+        // results.forEach((result, i) => {
+        //   const box = resizedDetections[i].detection.box;
+        //   const drawBox = new faceapi.draw.DrawBox(box, {
+        //     label: result.toString(),
+        //   });
+        //   drawBox.draw(canvas);
+        // });
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+      faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
       }, 100);
     };
 
@@ -140,7 +144,7 @@ const FaceRecognition = () => {
             muted
             style={{ border: "2px solid red" }}
           />
-          <canvas ref={canvasRef} style={{ border: "2px solid black" }} />
+          <canvas ref={canvasRef} style={{ border: "2px solid black", position:"absolute" }} />
         </>
       )}
     </div>
