@@ -95,7 +95,7 @@ const FaceRecognition = () => {
         // });
       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
-      }, 100);
+      }, 60000);
     };
 
     videoRef.current?.addEventListener("play", handlePlay);
