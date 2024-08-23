@@ -34,6 +34,7 @@ const FaceRecognition = () => {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: true,
         });
+        console.log("🚀 ~ startVideo ~ stream:", stream)
         videoRef.current.srcObject = stream;
       } catch (error) {
         console.error("Error accessing camera: ", error);
@@ -131,8 +132,15 @@ const FaceRecognition = () => {
         <p>No camera found on this device.</p>
       ) : (
         <>
-          <video ref={videoRef} width="720" height="560" autoPlay muted style={{ border: "2px solid red" }}/>
-          <canvas ref={canvasRef} style={{ border: "2px solid black" }}/>
+          <video
+            ref={videoRef}
+            width="720"
+            height="560"
+            autoPlay
+            muted
+            style={{ border: "2px solid red" }}
+          />
+          <canvas ref={canvasRef} style={{ border: "2px solid black" }} />
         </>
       )}
     </div>
