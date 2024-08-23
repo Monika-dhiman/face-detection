@@ -63,8 +63,8 @@ const FaceRecognition = () => {
       };
       faceapi.matchDimensions(canvas, displaySize);
 
-      // const labeledFaceDescriptors = await loadLabeledImages();
-      // const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
+      const labeledFaceDescriptors = await loadLabeledImages();
+      const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
 
       setInterval(async () => {
         const detections = await faceapi
@@ -86,16 +86,16 @@ const FaceRecognition = () => {
       
       canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
       faceapi.draw.drawDetections(canvas, resizedDetections)
-        // results.forEach((result, i) => {
-        //   const box = resizedDetections[i].detection.box;
-        //   const drawBox = new faceapi.draw.DrawBox(box, {
-        //     label: result.toString(),
-        //   });
-        //   drawBox.draw(canvas);
-        // });
+        results.forEach((result, i) => {
+          const box = resizedDetections[i].detection.box;
+          const drawBox = new faceapi.draw.DrawBox(box, {
+            label: result.toString(),
+          });
+          drawBox.draw(canvas);
+        });
       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
-      }, 60000);
+      }, 100);
     };
 
     videoRef.current?.addEventListener("play", handlePlay);
