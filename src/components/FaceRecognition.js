@@ -7,7 +7,7 @@ const FaceRecognition = () => {
   const verificationThreshold = 0.6;
   const [verificationResult, setVerificationResult] = useState(null);
   const [videoDevice, setvideoDevice] = useState([]);
-  const [ditection, setDetection] = useState([]);
+  const [label, setLabel] = useState("");
 
   useEffect(() => {
     const checkCameraAvailability = async () => {
@@ -83,9 +83,8 @@ const FaceRecognition = () => {
         if (resizedDetections.length > 0) {
           const firstFaceDescriptor = resizedDetections[0].descriptor;
           const result = faceMatcher.findBestMatch(firstFaceDescriptor);
-          console.log("🚀 ~ setInterval ~ result:", result)
           const isVerified = result.distance < verificationThreshold;
-
+          setLabel(result.label); // Update label state
           setVerificationResult(isVerified); // Update verification result state
           console.log(`Face 1 - Verified: ${isVerified}`);
 
@@ -101,7 +100,7 @@ const FaceRecognition = () => {
         resizedDetections.forEach((d, i) => {
           const box = d.detection.box;
           const drawBox = new faceapi.draw.DrawBox(box, {
-            label: d?.label || "Face",
+            label: label || "Face",
           });
           drawBox.draw(canvas);
         });
