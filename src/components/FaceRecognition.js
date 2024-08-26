@@ -117,10 +117,10 @@ const FaceRecognition = () => {
     //   <video ref={videoRef} width="720" height="560" autoPlay muted />
     //   <canvas ref={canvasRef} />
     // </div>
-    <div id="video-container" style={{ position: "relative", width: "720px", height: "560px" }}>
-      {videoDevice.length === 0 ? (
-        <p>No camera found on this device.</p>
-      ) : (
+    // <div id="video-container" style={{ position: "relative", width: "720px", height: "560px" }}>
+    //   {videoDevice.length === 0 ? (
+    //     <p>No camera found on this device.</p>
+    //   ) : (
         <>
           <video
             ref={videoRef}
@@ -132,8 +132,8 @@ const FaceRecognition = () => {
           />
           <canvas ref={canvasRef} />
         </>
-      )}
-    </div>
+    //   )}
+    // </div>
   );
 };
 
