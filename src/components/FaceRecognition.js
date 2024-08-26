@@ -83,6 +83,7 @@ const FaceRecognition = () => {
         if (resizedDetections.length > 0) {
           const firstFaceDescriptor = resizedDetections[0].descriptor;
           const result = faceMatcher.findBestMatch(firstFaceDescriptor);
+          console.log("🚀 ~ setInterval ~ result:", result)
           const isVerified = result.distance < verificationThreshold;
 
           setVerificationResult(isVerified); // Update verification result state
