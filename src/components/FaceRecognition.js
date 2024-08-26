@@ -114,8 +114,7 @@ const FaceRecognition = () => {
       videoRef.current?.removeEventListener("play", handlePlay);
     };
   }, []);
-  console.log("new changes 👍👍👍👍")
-
+  
   const loadLabeledImages = () => {
     const labels = ["person-1", "person-2"]; // Replace with actual names
     return Promise.all(
@@ -128,9 +127,9 @@ const FaceRecognition = () => {
             console.log(`Fetching image from URL: ${imageUrl}`);
             const img = await faceapi.fetchImage(imageUrl);
             const detections = await faceapi
-              .detectSingleFace(img)
-              .withFaceLandmarks()
-              .withFaceDescriptor();
+            .detectSingleFace(img)
+            .withFaceLandmarks()
+            .withFaceDescriptor();
             descriptions.push(detections.descriptor);
           } catch (error) {
             console.error(
@@ -143,7 +142,7 @@ const FaceRecognition = () => {
       })
     );
   };
-
+  console.log("new changes 👍👍👍👍")
   return (
     // <div>
     //   <video ref={videoRef} width="720" height="560" autoPlay muted />
