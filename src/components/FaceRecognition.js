@@ -142,7 +142,7 @@ const FaceRecognition = () => {
       })
     );
   };
-  console.log("new changes 👍👍👍👍")
+  console.log("new changes 👍👍")
   return (
     // <div>
     //   <video ref={videoRef} width="720" height="560" autoPlay muted />
