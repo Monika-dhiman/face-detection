@@ -7,8 +7,8 @@ function App() {
   return (
     <div className="App">
       <h1>Real-Time Face Recognition</h1>
-      {/* <FaceRecognition /> */}
-      <NewFaceRecognition />
+      <FaceRecognition />
+      {/* <NewFaceRecognition /> */}
     </div>
   );
 }

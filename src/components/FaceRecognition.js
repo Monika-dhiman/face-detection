@@ -4,8 +4,29 @@ import * as faceapi from 'face-api.js';
 const FaceRecognition = () => {
   const videoRef = useRef();
   const canvasRef = useRef();
+  const [videoDevice, setvideoDevice] = useState([]);
+  const [ditection, setDetection] = useState([]);
 
   useEffect(() => {
+    const checkCameraAvailability = async () => {
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(
+          (device) => device.kind === "videoinput"
+        );
+        setvideoDevice(videoDevices);
+
+        if (videoDevices.length === 0) {
+          console.error("No camera found on this device.");
+          return false;
+        }
+        return true;
+      } catch (error) {
+        console.error("Error enumerating devices: ", error);
+        return false;
+      }
+    };
+
     const startVideo = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -43,7 +64,7 @@ const FaceRecognition = () => {
           .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
           .withFaceLandmarks()
           .withFaceDescriptors();
-
+          setDetection(detections);
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
         const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
 
@@ -54,6 +75,7 @@ const FaceRecognition = () => {
           drawBox.draw(canvas);
         });
       }, 100);
+      console.log('detections: ', ditection);
     };
 
     videoRef.current?.addEventListener('play', handlePlay);
@@ -86,9 +108,26 @@ const FaceRecognition = () => {
   };
 
   return (
-    <div>
-      <video ref={videoRef} width="720" height="560" autoPlay muted />
-      <canvas ref={canvasRef} />
+    // <div>
+    //   <video ref={videoRef} width="720" height="560" autoPlay muted />
+    //   <canvas ref={canvasRef} />
+    // </div>
+    <div id="video-container" style={{ position: "relative", width: "720px", height: "560px" }}>
+      {videoDevice.length === 0 ? (
+        <p>No camera found on this device.</p>
+      ) : (
+        <>
+          <video
+            ref={videoRef}
+            width="720"
+            height="560"
+            autoPlay
+            muted
+            style={{ border: "2px solid red" }}
+          />
+          <canvas ref={canvasRef} />
+        </>
+      )}
     </div>
   );
 };
