@@ -139,7 +139,8 @@ const FaceRecognition = () => {
     );
   };
 
-  return (
+  return (<>
+    <h1>New Face Recognition</h1>
     <div id="video-container" style={{ position: "relative", width: "720px", height: "560px" }}>
       {videoDevice.length === 0 ? (
         <p>No camera found on this device.</p>
@@ -156,6 +157,7 @@ const FaceRecognition = () => {
         </>
       )}
     </div>
+    </>
   );
 };
 
