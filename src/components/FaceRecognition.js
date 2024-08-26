@@ -86,7 +86,7 @@ const FaceRecognition = () => {
           const isVerified = result.distance < verificationThreshold;
 
           setVerificationResult(isVerified); // Update verification result state
-          console.log(`Face 1 - Verified: ${isVerified}`);
+          // console.log(`Face 1 - Verified: ${isVerified}`);
 
           // Update UI to display "Verified" or "Not Verified" based on isVerified
         } else {
@@ -142,7 +142,6 @@ const FaceRecognition = () => {
       })
     );
   };
-  console.log("new changes 👍👍")
   return (
     // <div>
     //   <video ref={videoRef} width="720" height="560" autoPlay muted />
