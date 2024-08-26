@@ -102,7 +102,6 @@ const FaceRecognition = () => {
           const drawBox = new faceapi.draw.DrawBox(box, {
             label: d.toString(),
           });
-            console.log("🚀 ~ resizedDetections.forEach ~ d:", d)
           drawBox.draw(canvas);
         });
       }, 100);
