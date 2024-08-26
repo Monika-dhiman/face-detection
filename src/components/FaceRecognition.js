@@ -97,7 +97,6 @@ const FaceRecognition = () => {
 
         // Draw bounding boxes and labels for each detection
         resizedDetections.forEach((d, i) => {
-          console.log("🚀 ~ resizedDetections.forEach ~ d:", d)
           const box = d.detection.box;
           const drawBox = new faceapi.draw.DrawBox(box, {
             label: d.toString(),
