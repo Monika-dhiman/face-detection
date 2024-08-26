@@ -109,6 +109,7 @@ const FaceRecognition = () => {
       })
     );
   };
+  console.log("new changes")
   console.log("🚀 ~ handlePlay ~ detections", ditection);
   console.log("🚀 ~ handlePlay ~ videoDevice", videoDevice);
   return (
