@@ -91,11 +91,7 @@ const FaceRecognition = () => {
           // Update UI to display "Verified" or "Not Verified" based on isVerified
         } else {
           setVerificationResult(null); // Clear verification result if no face is detected
-          const drawBox = new faceapi.draw.DrawBox(box, {
-            label: result.toString(), // Use the defined 'result' here
-          });
         }
-        drawBox.draw(canvas);
 
         // Clear the canvas
         canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
@@ -104,10 +100,11 @@ const FaceRecognition = () => {
         resizedDetections.forEach((d, i) => {
           const box = d.detection.box;
           const drawBox = new faceapi.draw.DrawBox(box, {
-            label: d.label, // Use the existing 'label' property
+            label: d?.label || "Face",
           });
           drawBox.draw(canvas);
         });
+
       }, 100);
     };
 
@@ -117,7 +114,7 @@ const FaceRecognition = () => {
       videoRef.current?.removeEventListener("play", handlePlay);
     };
   }, []);
-
+  
   const loadLabeledImages = () => {
     const labels = ["person-1", "person-2"]; // Replace with actual names
     return Promise.all(
@@ -130,9 +127,9 @@ const FaceRecognition = () => {
             console.log(`Fetching image from URL: ${imageUrl}`);
             const img = await faceapi.fetchImage(imageUrl);
             const detections = await faceapi
-              .detectSingleFace(img)
-              .withFaceLandmarks()
-              .withFaceDescriptor();
+            .detectSingleFace(img)
+            .withFaceLandmarks()
+            .withFaceDescriptor();
             descriptions.push(detections.descriptor);
           } catch (error) {
             console.error(
@@ -145,7 +142,7 @@ const FaceRecognition = () => {
       })
     );
   };
-  console.log("new changes 464");
+  console.log("new changes in face recognition");
   return (
     // <div>
     //   <video ref={videoRef} width="720" height="560" autoPlay muted />
@@ -156,13 +153,13 @@ const FaceRecognition = () => {
     //     <p>No camera found on this device.</p>
     //   ) : (
     <>
-      <div style={{ border: "1px solid red" }}>
-        <video ref={videoRef} width="720" height="560" autoPlay muted />
-        <canvas ref={canvasRef} />
-      </div>
-      {verificationResult !== null && (
-        <p>{verificationResult ? "Verified" : "Not Verified"}</p>
-      )}
+    <div style={{ border: "1px solid red" }}>
+      <video ref={videoRef} width="720" height="560" autoPlay muted />
+      <canvas ref={canvasRef} />
+    </div>
+    {verificationResult !== null && (
+      <p>{verificationResult ? 'Verified' : 'Not Verified'}</p>
+    )}
     </>
     //   )}
     // </div>
