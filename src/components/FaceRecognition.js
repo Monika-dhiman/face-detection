@@ -7,6 +7,7 @@ const FaceRecognition = () => {
   const verificationThreshold = 0.6;
   const [verificationResult, setVerificationResult] = useState(null);
   const [videoDevice, setvideoDevice] = useState([]);
+  const [ditection, setDetection] = useState([]);
 
   useEffect(() => {
     const checkCameraAvailability = async () => {
@@ -103,6 +104,7 @@ const FaceRecognition = () => {
           });
           drawBox.draw(canvas);
         });
+
       }, 100);
     };
 
@@ -112,7 +114,7 @@ const FaceRecognition = () => {
       videoRef.current?.removeEventListener("play", handlePlay);
     };
   }, []);
-
+  
   const loadLabeledImages = () => {
     const labels = ["person-1", "person-2"]; // Replace with actual names
     return Promise.all(
@@ -125,9 +127,9 @@ const FaceRecognition = () => {
             console.log(`Fetching image from URL: ${imageUrl}`);
             const img = await faceapi.fetchImage(imageUrl);
             const detections = await faceapi
-              .detectSingleFace(img)
-              .withFaceLandmarks()
-              .withFaceDescriptor();
+            .detectSingleFace(img)
+            .withFaceLandmarks()
+            .withFaceDescriptor();
             descriptions.push(detections.descriptor);
           } catch (error) {
             console.error(
@@ -140,28 +142,27 @@ const FaceRecognition = () => {
       })
     );
   };
-  console.log('new changes 123')
+  console.log("new changes1")
   return (
+    // <div>
+    //   <video ref={videoRef} width="720" height="560" autoPlay muted />
+    //   <canvas ref={canvasRef} />
+    // </div>
+    // <div id="video-container" style={{ position: "relative", width: "720px", height: "560px" }}>
+    //   {videoDevice.length === 0 ? (
+    //     <p>No camera found on this device.</p>
+    //   ) : (
     <>
-      <div
-        id="video-container"
-        style={{ position: "relative", width: "720px", height: "560px" }}
-      >
-        {videoDevice.length === 0 ? (
-          <p>No camera found on this device.</p>
-        ) : (
-          <>
-            <div style={{ border: "1px solid red" }}>
-              <video ref={videoRef} width="720" height="560" autoPlay muted />
-              <canvas ref={canvasRef} />
-            </div>
-            {verificationResult !== null && (
-              <p>{verificationResult ? "Verified" : "Not Verified"}</p>
-            )}
-          </>
-        )}
-      </div>
+    <div style={{ border: "1px solid red" }}>
+      <video ref={videoRef} width="720" height="560" autoPlay muted />
+      <canvas ref={canvasRef} />
+    </div>
+    {verificationResult !== null && (
+      <p>{verificationResult ? 'Verified' : 'Not Verified'}</p>
+    )}
     </>
+    //   )}
+    // </div>
   );
 };
 
