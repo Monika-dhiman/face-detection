@@ -91,10 +91,10 @@ const FaceRecognition = () => {
           // Update UI to display "Verified" or "Not Verified" based on isVerified
         } else {
           setVerificationResult(null); // Clear verification result if no face is detected
+          const drawBox = new faceapi.draw.DrawBox(box, {
+            label: result.toString(), // Use the defined 'result' here
+          });
         }
-        const drawBox = new faceapi.draw.DrawBox(box, {
-          label: result.toString(), // Use the defined 'result' here
-        });
         drawBox.draw(canvas);
 
         // Clear the canvas
