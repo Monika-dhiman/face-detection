@@ -73,6 +73,7 @@ const FaceRecognition = () => {
           
           canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
           results.forEach((result, i) => {
+            console.log("🚀 ~ results.forEach ~ result:", result)
             const box = resizedDetections[i].detection.box;
             const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
             drawBox.draw(canvas);
@@ -109,9 +110,7 @@ const FaceRecognition = () => {
       })
     );
   };
-  console.log("new changes")
-  console.log("🚀 ~ handlePlay ~ detections", ditection);
-  console.log("🚀 ~ handlePlay ~ videoDevice", videoDevice);
+  
   return (
     // <div>
     //   <video ref={videoRef} width="720" height="560" autoPlay muted />
