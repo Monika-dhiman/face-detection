@@ -100,7 +100,7 @@ const FaceRecognition = () => {
         resizedDetections.forEach((d, i) => {
           const box = d.detection.box;
           const drawBox = new faceapi.draw.DrawBox(box, {
-            label: result.toString(),
+            label: d.toString(),
           });
           drawBox.draw(canvas);
         });
