@@ -29,10 +29,15 @@ const FaceRecognition = () => {
 
     const startVideo = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const cameraAvailable = await checkCameraAvailability();
+        if (!cameraAvailable) return;
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
         videoRef.current.srcObject = stream;
       } catch (error) {
-        console.error('Error accessing camera: ', error);
+        console.error("Error accessing camera: ", error);
       }
     };
 
