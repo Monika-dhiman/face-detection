@@ -43,7 +43,6 @@ const FaceRecognition = () => {
 
     const loadModels = async () => {
       const MODEL_URL = '/models';
-      console.log('MODEL_URL: ', MODEL_URL);
       await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
       await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
       await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
@@ -80,7 +79,6 @@ const FaceRecognition = () => {
           drawBox.draw(canvas);
         });
       }, 100);
-      console.log('detections: ', ditection);
     };
 
     videoRef.current?.addEventListener('play', handlePlay);
@@ -111,7 +109,8 @@ const FaceRecognition = () => {
       })
     );
   };
-
+  console.log("🚀 ~ handlePlay ~ detections", ditection);
+  console.log("🚀 ~ handlePlay ~ videoDevice", videoDevice);
   return (
     // <div>
     //   <video ref={videoRef} width="720" height="560" autoPlay muted />
