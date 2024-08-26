@@ -105,7 +105,7 @@ const FaceRecognition = () => {
             console.log("🚀 ~ resizedDetections.forEach ~ d:", d)
           drawBox.draw(canvas);
         });
-      }, 60000);
+      }, 1000);
     };
 
     videoRef.current?.addEventListener("play", handlePlay);
