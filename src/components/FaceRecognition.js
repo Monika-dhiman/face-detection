@@ -68,16 +68,16 @@ const FaceRecognition = () => {
           .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
           .withFaceLandmarks()
           .withFaceDescriptors();
+          const resizedDetections = faceapi.resizeResults(detections, displaySize);
+          const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
+          
+          canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+          results.forEach((result, i) => {
+            const box = resizedDetections[i].detection.box;
+            const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
+            drawBox.draw(canvas);
+          });
           setDetection(detections);
-        const resizedDetections = faceapi.resizeResults(detections, displaySize);
-        const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
-
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-        results.forEach((result, i) => {
-          const box = resizedDetections[i].detection.box;
-          const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
-          drawBox.draw(canvas);
-        });
       }, 100);
     };
 
