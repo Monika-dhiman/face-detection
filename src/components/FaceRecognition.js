@@ -105,7 +105,6 @@ const FaceRecognition = () => {
           drawBox.draw(canvas);
         });
 
-        setDetections(detections);
       }, 100);
     };
 
@@ -115,6 +114,7 @@ const FaceRecognition = () => {
       videoRef.current?.removeEventListener("play", handlePlay);
     };
   }, []);
+  console.log("new changes 👍👍👍👍")
 
   const loadLabeledImages = () => {
     const labels = ["person-1", "person-2"]; // Replace with actual names
