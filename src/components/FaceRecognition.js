@@ -140,7 +140,7 @@ const FaceRecognition = () => {
       })
     );
   };
-  console.log('new changes')
+  console.log('new changes 123')
   return (
     <>
       <div
